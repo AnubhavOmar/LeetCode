@@ -23,3 +23,17 @@ public:
         return double_original;
     }
 };
+
+// Appraoch (Using Find function of vector )
+
+class Solution {
+public:
+    int findFinalValue(vector<int>& nums, int original) {
+        int double_original = original;
+        while (find(nums.begin(),nums.end(),double_original) != nums.end()) {
+            double_original *= 2;
+        }
+
+        return double_original;
+    }
+};
