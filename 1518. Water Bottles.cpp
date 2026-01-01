@@ -24,3 +24,18 @@ public:
 
 // Approach - 2 (Optimal Approach) 
 
+class Solution {
+public:
+    int numWaterBottles(int numBottles, int numExchange) {
+        int drank = 0 ;
+        int empty = 0 ; 
+        while(numBottles>0)
+        {
+            drank = drank + numBottles ;
+            empty += numBottles ;
+            numBottles = int(empty/numExchange);
+            empty = empty % numExchange;
+        }
+        return drank;
+    }
+};
