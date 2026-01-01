@@ -1,6 +1,9 @@
+// Solution of LeetCode Problem 
+// 66. Plus One 
+// Solution in CPP 
 
 
-
+// Approach - 1 
 class Solution {
 public:
     vector<int> plusOne(vector<int>& digits) {
