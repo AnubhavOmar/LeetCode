@@ -21,3 +21,4 @@ int firstBadVersion(int n) {
     }
     return i;
 }
+
