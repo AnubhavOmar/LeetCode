@@ -15,3 +15,5 @@ public:
         return ans ;
     }
 };
+
+// Appraoch 2 
