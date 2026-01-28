@@ -1,4 +1,4 @@
-//  Solution of Hackerrank Problem 
+//  Solution of LeetCode Problem 
 // 179. Largest Number 
 // Solution in CPP 
 
