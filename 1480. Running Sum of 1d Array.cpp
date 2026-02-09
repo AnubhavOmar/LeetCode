@@ -23,7 +23,8 @@ public:
 };
 
 
-// Appraoch - 2   (Without Using an extra vector)
+// Appraoch - 2   (Without Using an extra vector) 
+// (More optimal Appraoch )
 
 
 // Time Complexity = O(n);
