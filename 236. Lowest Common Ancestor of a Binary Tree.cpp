@@ -4,6 +4,8 @@
 
 // Approach - 1 (Using DFS to iterate through tree)
 
+// traversel used is postorder (Left child , Right child , Parent node )
+
 
 class Solution {
 public:
