@@ -3,6 +3,7 @@
 // Solution in cpp 
 
 // Approach - 1 (Using recursion) 
+// Time Complexity: O(n log n)
 
 class Solution {
 public:
@@ -44,5 +45,16 @@ private :
         {
             nums[i+k] = buf[k];
         }
+    }
+};
+
+
+// Approach 2: Using built-in sort() (for comparison only, not used as main solution)
+
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        sort(nums.begin() , nums.end());
+        return nums;
     }
 };
