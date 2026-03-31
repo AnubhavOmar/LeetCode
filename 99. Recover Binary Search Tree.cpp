@@ -67,4 +67,51 @@ vector<TreeNode*> vec ;
 
 
 
-// Approach - 2 
+/*  Approach - 2
+in this approach i am thinking that during the inorder traversal i will find the X and Y nodes and store them in global variable and then swap both of them value in this way we will store Space of vector 
+ */ 
+class Solution {
+public:
+    // Global Variable 
+    TreeNode * X = NULL ;
+    TreeNode * Y = NULL ;
+    TreeNode* prev = NULL;
+    bool first_value_found = false; 
+
+    void recoverTree(TreeNode* root) {
+        
+        inorder_traversal_2(root) ;
+        swap(X->val, Y->val); 
+
+    }
+
+    void inorder_traversal_2(TreeNode * root )
+    {
+        if(root == NULL)
+        {
+            // base case 
+            return ;
+        }
+
+        // recursive cases 
+
+        inorder_traversal_2(root->left);
+    
+        if( prev != NULL && prev->val > root->val && !first_value_found )
+        {
+            X = prev ;
+            Y = root ;
+            first_value_found = true ;
+        }
+        if( first_value_found && prev->val > root->val )
+        {
+            Y = root ;
+        }
+        prev = root ;
+
+        
+        inorder_traversal_2(root->right);
+
+    }
+    
+};
