@@ -24,3 +24,34 @@ public:
         return { ans[0] , ans [ans.size() - 1] } ;
     }
 };
+
+// Approach - 2 (Removed Answer vector)
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        
+        if(nums.size() == 1 && nums[0] == target) return { 0 , 0 };
+
+        bool first_found = false ;
+
+        int first_index = - 1;
+
+        int second_index = -1;
+
+        for(int i = 0 ; i<nums.size() ; i++)
+        {
+            if(nums[i] == target && !first_found)
+            {
+                first_index = i ;
+                first_found = true ;
+            }
+            if( first_found && nums[i] == target )
+            {
+                second_index = i ;
+            }
+        }
+        return { first_index , second_index };
+    }
+};
+

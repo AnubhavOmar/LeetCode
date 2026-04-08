@@ -1,5 +1,6 @@
-// solution of Leetcode 202 Happy Numbers
-// In cpp 
+// solution of Leetcode 
+// 202 Happy Numbers
+// Solution in cpp 
 
 class Solution {
 public:
