@@ -3,22 +3,29 @@
 // Solution in C 
 
 // Approach - 1 ( Using Binary Search )
-
 // The API isBadVersion is defined for you.
 // bool isBadVersion(int version);
 
-int firstBadVersion(int n) {
-    int i = 1, j = n;
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        int start = 1 ; 
+        int end = n ;
+        while( start < end)
+        {
+            int mid = start + (end - start) / 2 ;
 
-    while (i <= j) {
-        int mid = i + (j - i) / 2;
+            bool called_api = isBadVersion(mid) ;
 
-        if (isBadVersion(mid)) {
-            j = mid - 1;
-        } else {
-            i = mid + 1;
+            if(called_api == true)
+            {
+                end = mid ;
+            }
+            else 
+            {
+                start = mid + 1 ;
+            }
         }
+        return start ;
     }
-    return i;
-}
-
+};
