@@ -3,6 +3,7 @@
 // Solution in CPP 
 
 // Approach - 3 Using Recursion with two pointers
+
 class Solution {
 public:
 
@@ -22,6 +23,7 @@ private :
 };
 
 // Approach - 2 (Using While Loop Two Pointers)
+
 class Solution2 {
 public:
     void reverseString(vector<char>& s) {
@@ -37,6 +39,7 @@ public:
 };
 
 // Approach - 1 Using Recursion 
+
 class Solution1 {
 public:
 
