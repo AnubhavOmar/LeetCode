@@ -23,3 +23,21 @@ public:
         return false;
     }
 };
+
+
+// Approach - 3 (Recursive Approach)
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        return check(n);
+    }
+private : 
+    bool check(int n )
+    {
+        if(n == 1 ) return true;
+        if(n == 0 ) return false;
+        if(n % 2 != 0) return false;
+        return check(n/2);
+    }
+};
