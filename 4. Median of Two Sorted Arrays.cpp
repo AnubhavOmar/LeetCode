@@ -31,3 +31,51 @@ public:
         return vecc[n/2];
     }
 };
+
+// Approach - 2 (Using Two Pointers)
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int m = nums1.size() + nums2.size();
+        int n = m / 2;
+
+        int i = 0;
+        int j = 0;
+
+        int prev = 0;
+        int curr = 0;
+
+        for (int count = 0; count <= n; count++) {
+            prev = curr;
+
+            // if nums1 traversal is completed quilckly  
+            if (i >= nums1.size()) {
+                curr = nums2[j];
+                j++;
+            }
+
+            // if nums2 traversal is completed quilckly 
+            else if (j >= nums2.size()) {
+                curr = nums1[i];
+                i++;
+            }
+
+            else if (nums1[i] <= nums2[j]) {
+                curr = nums1[i];
+                i++;
+            }
+
+            else {
+                curr = nums2[j];
+                j++;
+            }
+        }
+
+        if (m % 2 == 0) {
+            return (prev + curr) / 2.0;
+        }
+
+        return curr;
+    }
+};
