@@ -1,4 +1,7 @@
 // Solution of LeetCode problem 
+// 26. Remove Duplicates from Sorted Array
+// Solution in CPP 
+
 // Appraoch -1 
 //brute force 
 class Solution {
@@ -34,26 +37,84 @@ public:
         return m.size();
     }
 };
+// Approach - 3 (Brute Force)
+// Time Complexity: O(n^2)
+// Space Complexity: O(1)
 
-// Appraoch 3 
-// Wihtout extra space 
-class Solution {
+class Solution1 {
 public:
     int removeDuplicates(vector<int>& nums) {
-       int n = nums.size() ;
-       if(n==0) return 0 ;
-       int i = 0 ; 
-       for(int j = 1 ;j<n ;j++)
-       {
-        if(nums[i] != nums[j])
-        {
-            i++;
-            nums[i]=nums[j];
-            
+        int n = nums.size();
+        int k = 0;
+
+        for (int i = 0; i < n; i++) {
+            bool found = false;
+
+            for (int j = 0; j < i; j++) {
+                if (nums[i] == nums[j]) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                nums[k] = nums[i];
+                k++;
+            }
         }
-       }
-        return i+1 ;
+
+        return k;
+    }
+};
 
 
+// Approach - 4 (Two Pointers with Previous Variable)
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+class Solution2 {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        int i = 0;
+        int previous = nums[i];
+        int j = 1;
+
+        while (i < n && j < n) {
+            if (previous == nums[j]) {
+                j++;
+            } else {
+                i++;
+                previous = nums[j];
+                swap(nums[i], nums[j]);
+                j++;
+            }
+        }
+
+        return i + 1;
+    }
+};
+
+
+// Approach - 5 (Optimal Two Pointers)
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+class Solution3 {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        int i = 0;
+        int j = 1;
+
+        while (j < n) {
+            if (nums[i] != nums[j]) {
+                i++;
+                nums[i] = nums[j];
+            }
+            j++;
+        }
+
+        return i + 1;
     }
 };
