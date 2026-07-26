@@ -1,76 +1,198 @@
-// Solution of LeetCode Problem 
-// 1. Two Sum 
-// Solution in CPP 
+// Solution of LeetCode Problem
+// 1. Two Sum
+// Solution in C++
 
-// Appraoch -  3 
+// ==========================================================
+// Approach - 5 (Sorting + Two Pointers)
+// Time Complexity  : O(n log n)
+// Space Complexity : O(n)
+// ==========================================================
+// Store each element along with its original index.
+// Sort the array based on element values.
+// Use two pointers to find the required pair.
+// Return the original indices stored in the pair.
 
-// Time Complexity = O(n) time reduced from O(2n) -> O(n)   
-// Space Complexity = O(n) for map 
-// we find the second number and inserting of elements in map using a single for loop if it does not exit then insert the element ,
-//  if it exits means we find the second number by adding it with first number we will get to the target 
+class Solution4 {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+
+        int n = nums.size();
+
+        vector<pair<int, int>> arr;
+
+        // Store value along with its original index
+        for (int i = 0; i < n; i++) {
+            arr.push_back({nums[i], i});
+        }
+
+        // Sort according to value
+        sort(arr.begin(), arr.end());
+
+        int i = 0;
+        int j = n - 1;
+
+        while (i < j) {
+
+            int sum = arr[i].first + arr[j].first;
+
+            if (sum == target) {
+                return {arr[i].second, arr[j].second};
+            }
+            else if (sum < target) {
+                i++;
+            }
+            else {
+                j--;
+            }
+        }
+
+        return {};
+    }
+};
+
+
+// ==========================================================
+// Approach - 4 (Sorting + Binary Search)
+// Time Complexity  : O(n log n)
+// Space Complexity : O(n)
+// ==========================================================
+// Store each element along with its original index.
+// Sort the array.
+// For every element, binary search its complement
+// in the remaining sorted array.
+
+class Solution5 {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+
+        int n = nums.size();
+
+        vector<pair<int, int>> arr;
+
+        // Store value along with its original index
+        for (int i = 0; i < n; i++) {
+            arr.push_back({nums[i], i});
+        }
+
+        // Sort according to value
+        sort(arr.begin(), arr.end());
+
+        for (int i = 0; i < n; i++) {
+
+            int required = target - arr[i].first;
+
+            int low = i + 1;
+            int high = n - 1;
+
+            while (low <= high) {
+
+                int mid = low + (high - low) / 2;
+
+                if (arr[mid].first == required) {
+                    return {arr[i].second, arr[mid].second};
+                }
+                else if (arr[mid].first < required) {
+                    low = mid + 1;
+                }
+                else {
+                    high = mid - 1;
+                }
+            }
+        }
+
+        return {};
+    }
+};
+
+// ==========================================================
+// Approach - 3 (Optimal - Single Pass HashMap)
+// Time Complexity  : O(n)
+// Space Complexity : O(n)
+// ==========================================================
+// We find the required complement and insert elements into the
+// unordered_map in a single traversal.
+// If the complement already exists in the map, we have found
+// the required pair. Otherwise, store the current element and
+// its index in the map.
 
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
 
         unordered_map<int, int> um;
+
         for (int i = 0; i < nums.size(); i++) {
+
             int complement = target - nums[i];
-            if (um.find(complement) != um.end())
-            {
-                return { um[complement], i };
+
+            if (um.find(complement) != um.end()) {
+                return {um[complement], i};
             }
+
             um[nums[i]] = i;
         }
-        return {0, 0};
+
+        return {};
     }
 };
 
 
+// ==========================================================
+// Approach - 2 (Two Pass HashMap)
+// Time Complexity  : O(2n) ≈ O(n)
+// Space Complexity : O(n)
+// ==========================================================
+// First pass: Store every element and its index in the map.
+// Second pass: Search for the complement of each element.
+// Ensure that we do not use the same index twice.
 
-// Appraoch - 2 Using Map 
-
-// Time Complexity = O(2n)  
-// Space Complexity = O(n) for map 
-
-class Solution {
+class Solution2 {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
 
-        unordered_map<int,int> um ; // using unordered map becuase searching time complexity is :  O(1)
-        for(int i = 0 ; i<nums.size() ;i++)
-        {
-            um[nums[i]] = i  ; // this will store the element and its index in a map 
-        }       
-        for(int i = 0 ; i<nums.size();i++)
-        {
+        unordered_map<int, int> um;
+
+        // Store element and its index
+        for (int i = 0; i < nums.size(); i++) {
+            um[nums[i]] = i;
+        }
+
+        // Search for the complement
+        for (int i = 0; i < nums.size(); i++) {
+
             auto it = um.find(target - nums[i]);
-            // this will find the second number , that will on adding with the first number gives the target  
-            if(it != um.end() && it->second != i )
-            {
-                return { i  , it->second}; 
+
+            if (it != um.end() && it->second != i) {
+                return {i, it->second};
             }
         }
-        return {0,0};
+
+        return {};
     }
 };
 
 
-// Approach - 1 
-// Time Complexity = O(n^2)  
-// Space Complexity = O(1) 
+// ==========================================================
+// Approach - 1 (Brute Force)
+// Time Complexity  : O(n²)
+// Space Complexity : O(1)
+// ==========================================================
+// Check every possible pair of elements.
 
-class Solution {
+class Solution1 {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        for(int i = 0 ;i<nums.size() ;i++){
-            for(int j = i+1 ;j<nums.size() ;j++){
-                if (nums[i]+nums[j] == target) return {i,j}; 
+
+        for (int i = 0; i < nums.size(); i++) {
+
+            for (int j = i + 1; j < nums.size(); j++) {
+
+                if (nums[i] + nums[j] == target) {
+                    return {i, j};
+                }
             }
         }
-    return {0};
+
+        return {};
     }
 };
-
-
-
