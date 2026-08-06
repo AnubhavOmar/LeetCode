@@ -7,7 +7,7 @@
 // Time Complexity: O(N log N) 
 // Space Complexity: O(N) 
 
-class Solution {
+class Solution1 {
 public:
     int mostFrequentEven(vector<int>& nums) {
         map<int, int > mp ;
@@ -29,6 +29,44 @@ public:
                 maxfreq = a.second;
             }
         }
+        return ans;
+    }
+};
+
+// Approach 2: Using an unordered_map with frequency and tie-breaking
+// Time Complexity: O(N) 
+// Space Complexity: O(N) 
+
+
+class Solution2 {
+public:
+    int mostFrequentEven(vector<int>& nums) {
+        unordered_map<int, int> mp;
+
+        for (int num : nums)
+        {
+            mp[num]++;
+        }
+
+        int ans = -1;
+        int maxfreq = -1;
+
+        for (auto a : mp)
+        {
+            if (a.first % 2 != 0)
+                continue;
+
+            if (a.second > maxfreq)
+            {
+                maxfreq = a.second;
+                ans = a.first;
+            }
+            else if (a.second == maxfreq && (ans == -1 || a.first < ans))
+            {
+                ans = a.first;
+            }
+        }
+
         return ans;
     }
 };
