@@ -39,20 +39,32 @@ public:
 class Solution {
 public:
     int findMin(vector<int>& nums) {
-        int i = 0 ; 
-        int j = nums.size() - 1;
-        while(i<j)
+        int n = nums.size() ;
+        int low = 0 ;
+        int high = n - 1 ;
+        int ans = INT_MAX ;
+        while(low <= high)
         {
-            int mid = i + (j-i)/2;
-            if(nums[mid] < nums[j])
+            if (nums[low] <= nums[high])
             {
-                j = mid ;
+                // if the whole array is sorted or we cross the point of rotation of the array 
+                ans = min(ans, nums[low]);
+                break;
             }
-            else if (nums[mid] > nums[j])
+            int mid = low + (high - low) / 2 ;
+            if(nums[low] <= nums[mid])   // Left half is sorted
             {
-                i = mid + 1;
+                // first find left is sorted then storing the low ptr value because it will pointing to the smallest element on that sorted part 
+                ans = min(ans, nums[low]);
+                low = mid + 1;
             }
-        }  
-        return nums[i];
+            else                         // Right half is sorted
+            {
+                // here right part is sorted then storing the mid ptr value because it will pointing to the smallest element on the right sorted part 
+                ans = min(ans, nums[mid]);
+                high = mid - 1;
+            }
+        }        
+        return ans;
     }
 };
