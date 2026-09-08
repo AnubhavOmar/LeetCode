@@ -1,4 +1,4 @@
-// Solution of LeetCode Problem
+// Solution of LeetCode POTD
 // 3870. Count Commas in Range
 // Solution in CPP
 
