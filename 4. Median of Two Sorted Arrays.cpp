@@ -79,3 +79,54 @@ public:
         return curr;
     }
 };
+
+// Approach - 3
+// Using Two Pointers with Early Termination
+// Time Complexity: O(M+N) - Traversing through both arrays until the median position is reached, where M and N are array sizes
+// Space Complexity: O(1) - Constant auxiliary space used
+
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int m = nums1.size() ;
+        int n = nums2.size() ;
+        int target = (m+n) / 2 ;
+        double prev = 0;
+        double curr = 0;
+        int i = 0 ; 
+        int j = 0 ;
+
+        while(i < m && j < n && i+j <= target)
+        {
+            prev = curr ;
+            if(nums1[i] < nums2[j])
+            {
+                curr = nums1[i] ;
+                i++ ;
+            }
+            else
+            {
+                curr = nums2[j] ;
+                j++ ;
+            }
+        }
+        while(i < m && i + j <= target)
+        {
+                prev = curr ;
+                curr = nums1[i] ;
+                i++ ;
+        }
+        
+        while(j < n && i + j <= target)
+        {
+                prev = curr ;
+                curr = nums2[j] ;
+                j++ ;
+        }
+
+        if ((m + n) % 2 == 0)
+            return (prev + curr) / 2.0;
+
+        return curr;
+    }
+};
