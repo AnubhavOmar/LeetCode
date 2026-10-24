@@ -3,6 +3,27 @@
 // Solution in CPP
 
 // Approach - 1
+// Using Bottom-Up Dynamic Programming with Tabulation
+// Time Complexity: O(n) - The DP table is filled from 2 through n.
+// Space Complexity: O(n) - The DP table stores n + 1 Fibonacci values.
+
+class Solution {
+public:
+    int fib(int n) {
+        if(n == 0) return 0 ;
+        if(n == 1) return 1 ;
+        vector<int> dp(n + 1) ; // we take n + 1 ;
+        dp[0] = 0 ;
+        dp[1] = 1 ;
+        for(int i = 2 ; i < dp.size() ; i++)
+        {
+            dp[i] = dp[i - 1] + dp[i - 2] ;
+        }
+        return dp[n] ;
+    }
+};
+
+// Approach - 2
 // Using Top-Down Dynamic Programming with Memoization
 // Time Complexity: O(n) - Each Fibonacci state is calculated once.
 // Space Complexity: O(n) - The memoization array and recursion stack use linear space.
@@ -33,7 +54,7 @@ public:
     }
 };
 
-// Approach - 2
+// Approach - 3
 // Using Plain Recursion
 // Time Complexity: O(2^n) - The recursive calls repeatedly recompute the same Fibonacci values.
 // Space Complexity: O(n) - The recursion stack can reach depth n.
@@ -50,8 +71,8 @@ public :
     }
 };
 
-// Approach - 3
-// Using Iterative Method
+// Approach - 4
+// Using Iterative Approach with Constant Space
 // Time Complexity: O(n) - The loop computes each Fibonacci value once.
 // Space Complexity: O(1) - Only a constant number of variables are maintained.
 
