@@ -3,6 +3,35 @@
 // Solution in CPP
 
 // Approach - 1
+// Using Bottom-Up Dynamic Programming with Tabulation
+// Time Complexity: O(n) - The DP table is filled once from the second house through the last.
+// Space Complexity: O(n) - The DP table stores the best result for each house.
+/*  
+    * Tabulation using formula from i = 2 to n 
+    * dp[i] = max(dp[i-2] + nums[i] , dp[i-1] ) ;
+    * here dp will store the maximum money that can robber , have till that ith house 
+*/
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size() ;
+        if(n == 1) return nums[0] ;
+
+        vector<int> dp( n ) ;
+        // base case for the dp table
+        dp[0] = nums[0] ;
+        dp[1] = max( dp[0] , nums[1]) ;
+
+        for(int i = 2 ; i < n ; i++)
+        {
+            dp[i] = max( dp[i-2] + nums[i] , dp[i-1] );
+        }
+        return dp[n-1] ;
+    }
+};
+
+// Approach - 2
 // Using Dynamic Programming with Rolling State
 // Time Complexity: O(n) - Each house is processed once.
 // Space Complexity: O(1) - Only two previous states are stored.
@@ -25,7 +54,7 @@ public:
     }
 };
 
-// Approach - 2
+// Approach - 3
 // Using Top-Down Dynamic Programming
 // Time Complexity: O(n) - Each index is solved once and memoized.
 // Space Complexity: O(n) - The DP array plus recursion stack are used.
@@ -62,7 +91,7 @@ public:
     }
 };
 
-// Approach - 3
+// Approach - 4
 // Using Exhaustive Subset Generation
 // Time Complexity: O(2^n) - All subsets are enumerated.
 // Space Complexity: O(2^n) - The generated subset list can be exponential.
@@ -122,7 +151,7 @@ public:
     }
 };
 
-// Approach - 4
+// Approach - 5
 // Using Exhaustive Subset Generation with Validity Check
 // Time Complexity: O(2^n) - All subsets are generated and checked.
 // Space Complexity: O(2^n) - The subset list and temporary vectors are exponential.
@@ -187,7 +216,7 @@ public:
 
 };
 
-// Approach - 5
+// Approach - 6
 // Using Recursive Exhaustive Search
 // Time Complexity: O(2^n) - Every branch explores the choice to rob or skip a house.
 // Space Complexity: O(n) - Recursive depth is up to n.
