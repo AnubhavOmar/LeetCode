@@ -1,8 +1,11 @@
 // Solution of LeetCode Problem 
 // 21. Merge Two Sorted Lists
-// Solution in CPP 
+// Solution in CPP
 
-// Approach - 1 (Using a vector to store the values of both lists and then sorting it and adding them in a new linked list )
+// Approach - 1
+// Using a Vector, Sorting, and Constructing a New Linked List
+// Time Complexity: O((m + n) log(m + n)) - The values are collected in O(m + n), sorted, and copied into a new list.
+// Space Complexity: O(m + n) - The vector and newly constructed result list store all values.
 
 class Solution {
 public:
@@ -37,36 +40,67 @@ public:
 };
 
 
-// Appraoch - 2  (Not Using any vector only moving the nodes to a new list and returning its head)
+// Approach - 2
+// Using Two Pointers and Linked-List Relinking
+// Time Complexity: O(m + n) - Each node from both lists is processed once.
+// Space Complexity: O(1) - Only constant extra pointers are used; existing nodes are relinked.
 
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if(list1 == NULL && list2 == NULL) return NULL ;
+        if(list1 == NULL)
+        {
+            return list2;
+        }
+        if(list2 == NULL)
+        {
+            return list1 ;
+        }
+        
+        ListNode * head ;
+        if(list1->val < list2->val)
+        {
+            head = new ListNode(list1->val) ;
+            list1 = list1->next;
+        }
+        else
+        {
+            head = new ListNode(list2->val) ;
+            list2 = list2->next;
+        }
 
-        // Step 1: Create dummy node
-        ListNode* dummy = new ListNode(0);
-        ListNode* temp = dummy;
+        ListNode * temp = head;
 
-        // Step 2: Compare both lists
-        while (list1 != NULL && list2 != NULL) {
-            if (list1->val <= list2->val) {
-                temp->next = list1;
+        while(list1 != NULL && list2 != NULL)
+        {
+            if(list1->val < list2->val)
+            {
+                temp->next = list1 ;
+                temp = temp->next ;
                 list1 = list1->next;
-            } else {
-                temp->next = list2;
-                list2 = list2->next;
             }
-            temp = temp->next;
+            else
+            {
+                temp->next = list2;
+                temp = temp->next ;
+                list2 = list2->next ;
+            }
         }
 
-        // Step 3: Attach remaining nodes
-        if (list1 != NULL) {
+        while(list1 != NULL)
+        {
             temp->next = list1;
-        } else {
-            temp->next = list2;
+            list1 = list1->next ;
+            temp = temp->next ;
         }
 
-        // Step 4: Return merged list
-        return dummy->next;
+        while(list2 != NULL)
+        {
+            temp->next = list2;
+            list2 = list2->next ;
+            temp = temp->next ;
+        }
+        return head;
     }
 };
