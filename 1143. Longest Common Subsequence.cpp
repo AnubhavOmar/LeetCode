@@ -8,20 +8,51 @@
 // ================================================================
 
 // Approach - 1
+// Using Bottom-Up Dynamic Programming
+// Time Complexity: O(M * N) - Fills the table for every pair of string positions
+// Space Complexity: O(M * N) - Stores results for every pair of string positions
+class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int m = text1.size() ;
+        int n = text2.size() ;
+
+        vector<vector<int>>dp ( m + 1 , vector<int> (n + 1, 0 )) ;
+        
+        for(int i = 1 ; i <= m ; i++)
+        {
+            for(int j = 1 ; j <= n ; j++)
+            {
+                if(text1[i - 1] == text2[j - 1])
+                {
+                    dp[i][j] = 1 + dp[i-1][j-1] ;
+                }
+                else
+                {
+                    dp[i][j] = max( dp[i-1][j]  , dp[i][j-1] ) ;
+                }
+            }
+        }
+        return dp[m][n] ;
+    }
+};
+
+
+// Approach - 2
 // Using Recursion with Memoization
-// Time Complexity: O(M * N) - Store and reuse results for every pair of positions in both strings
-// Space Complexity: O(M * N) - Use a memo table and a recursive call stack
+// Time Complexity: O(M * N) - Computes each pair of string positions once
+// Space Complexity: O(M * N) - Stores memoized results and uses recursion stack space
 
 // Recursion + Memoization
 
-class Solution {
+class Solution2 {
 public:
     int longestCommonSubsequence(string text1, string text2) {
         // we can start from both start or end places of string
         int m = text1.size() ;
         int n = text2.size() ;
 
-        vector<vector<int>>dp ( m + 1 , vector<int> (n,-1)) ;
+        vector<vector<int>>dp ( m  , vector<int> (n,-1)) ;
 
         return helper( text1.size() - 1 , text2.size() - 1 , text1 , text2 , dp );
     }
@@ -49,7 +80,7 @@ public:
 
 
 
-// Approach - 2
+// Approach - 3
 // Using Plain Recursion
 // Time Complexity: O(2^(M + N)) - Try skipping characters from both strings and may revisit overlapping states
 // Space Complexity: O(M + N) - Recursive call stack depth follows the two string positions
@@ -84,10 +115,10 @@ public:
 //                 Longest Common Subsequence
 // ================================================================
 
-// Approach - 3
+// Approach - 4
 // Using Recursion with Memoization
-// Time Complexity: O(M * N) - Store and reuse results for every pair of positions in both strings
-// Space Complexity: O(M * N) - Use a memo table and a recursive call stack
+// Time Complexity: O(M * N) - Computes each pair of string positions once
+// Space Complexity: O(M * N) - Stores memoized results and uses recursion stack space
 
 class Solution {
   public:
@@ -124,7 +155,7 @@ class Solution {
 };
 
 
-// Approach - 4
+// Approach - 5
 // Using Plain Recursion
 // Time Complexity: O(2^(M + N)) - Try skipping characters from both strings and may revisit overlapping states
 // Space Complexity: O(M + N) - Recursive call stack depth follows the two string positions
